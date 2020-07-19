@@ -8,8 +8,10 @@ import GlobalStyle from './styles/global';
 function App() {
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <Routes />
+      <>
+        <GlobalStyle />
+        <Routes />
+      </>
     </Provider>
   );
 }
