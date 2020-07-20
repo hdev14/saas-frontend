@@ -28,4 +28,13 @@ input, button {
 button {
   cursor: pointer;
 }
+
+@keyframes rotation {
+  0% {
+    transform: rotate(-360deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
 `;
