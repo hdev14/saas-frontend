@@ -3,12 +3,14 @@ import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 import { signInSuccess } from '../ducks/auth/actions';
+import history from '../../services/history';
 
 export function* signIn({ payload }) {
   try {
     const response = yield call(api.post, '/sessions', payload);
     localStorage.setItem('@JWT:token', response.data.token);
     yield put(signInSuccess(response.data.token));
+    history.push('/');
   } catch (err) {
     toast.error('Verifique seu e-mail ou senha');
   }
