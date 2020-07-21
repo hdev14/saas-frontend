@@ -15,3 +15,11 @@ export function* signIn({ payload }) {
     toast.error('Verifique seu e-mail ou senha');
   }
 }
+
+export function* setToken({ payload }) {
+  console.log(payload);
+  const { token } = payload.auth;
+  if (token) {
+    yield put(signInSuccess(token));
+  }
+}
