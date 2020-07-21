@@ -17,7 +17,6 @@ export function* signIn({ payload }) {
 }
 
 export function* setToken({ payload }) {
-  console.log(payload);
   const { token } = payload.auth;
   if (token) {
     yield put(signInSuccess(token));
