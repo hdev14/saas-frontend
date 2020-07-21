@@ -8,17 +8,19 @@ import history from '../../services/history';
 export function* signIn({ payload }) {
   try {
     const response = yield call(api.post, '/sessions', payload);
-    localStorage.setItem('@JWT:token', response.data.token);
-    yield put(signInSuccess(response.data.token));
+    const { token } = response.data;
+    localStorage.setItem('@JWT:token', token);
+    api.defaults.headers.Authorization = `Baerer ${token}`;
+    yield put(signInSuccess(token));
     history.push('/');
   } catch (err) {
     toast.error('Verifique seu e-mail ou senha');
   }
 }
 
-export function* setToken({ payload }) {
-  const { token } = payload.auth;
-  if (token) {
-    yield put(signInSuccess(token));
+export function setToken({ payload }) {
+  if (payload.auth && payload.auth.token) {
+    api.defaults.headers.Authorization = `Baerer ${payload.auth.token}`;
+    // yield put(signInSuccess(token));
   }
 }
