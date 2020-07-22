@@ -3,7 +3,7 @@ import produce from 'immer';
 import authTypes from './auth-types';
 
 const INITIAL_STATE = {
-  signed: false,
+  signed: true,
   token: null,
 };
 
