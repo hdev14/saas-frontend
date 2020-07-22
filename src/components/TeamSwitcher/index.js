@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-
+import { FiPlus } from 'react-icons/fi';
 import { setActive } from '../../store/ducks/team/actions';
 
-import { Container, TeamList, Team } from './styles';
+import {
+  Container, TeamList, Team, NewTeam,
+} from './styles';
 
 const TeamSwitcher = ({ teams }) => {
   const dispatch = useDispatch();
@@ -22,6 +24,9 @@ const TeamSwitcher = ({ teams }) => {
           </Team>
         ))}
       </TeamList>
+      <NewTeam>
+        <FiPlus size={25} />
+      </NewTeam>
     </Container>
   );
 };

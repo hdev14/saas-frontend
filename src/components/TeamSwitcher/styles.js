@@ -32,3 +32,21 @@ export const Team = styled.button`
   }
 
 `;
+
+export const NewTeam = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  transition: all .2s;
+  background: transparent;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.6);
+  }
+`;
