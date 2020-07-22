@@ -14,3 +14,12 @@ export function getTeamsSuccess(data) {
     },
   };
 }
+
+export function setActive(team) {
+  return {
+    type: teamTypes.SET_ACTIVE,
+    payload: {
+      team,
+    },
+  };
+}

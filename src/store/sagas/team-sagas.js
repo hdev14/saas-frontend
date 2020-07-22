@@ -13,3 +13,10 @@ export function* getTeams() {
     toast.error('Algo errado não está certo');
   }
 }
+
+export function setActive({ payload }) {
+  const { team } = payload;
+  if (team) {
+    api.defaults.headers.common['Team-Slug'] = team.active ? team.active.slug : team.slug;
+  }
+}

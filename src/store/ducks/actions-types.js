@@ -6,4 +6,5 @@ export const authTypes = {
 export const teamTypes = {
   GET_TEAMS_REQUEST: '@team/getTeamsRequest',
   GET_TEAMS_SUCCESS: '@team/getTeamsSuccess',
+  SET_ACTIVE: '@team/setActive',
 };
