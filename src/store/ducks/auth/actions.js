@@ -1,4 +1,4 @@
-import authTypes from './auth-types';
+import { authTypes } from '../actions-types';
 
 export function signInRequest({ email, password }) {
   return {

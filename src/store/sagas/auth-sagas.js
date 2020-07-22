@@ -10,7 +10,7 @@ export function* signIn({ payload }) {
     const response = yield call(api.post, '/sessions', payload);
     const { token } = response.data;
     localStorage.setItem('@JWT:token', token);
-    api.defaults.headers.Authorization = `Baerer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token}`;
     yield put(signInSuccess(token));
     history.push('/');
   } catch (err) {
@@ -20,7 +20,7 @@ export function* signIn({ payload }) {
 
 export function setToken({ payload }) {
   if (payload.auth && payload.auth.token) {
-    api.defaults.headers.Authorization = `Baerer ${payload.auth.token}`;
+    api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
     // yield put(signInSuccess(token));
   }
 }

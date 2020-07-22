@@ -1,9 +1,9 @@
 import produce from 'immer';
 
-import authTypes from './auth-types';
+import { authTypes } from '../actions-types';
 
 const INITIAL_STATE = {
-  signed: true,
+  signed: false,
   token: null,
 };
 
