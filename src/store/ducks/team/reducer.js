@@ -13,9 +13,9 @@ export default function team(state = INITIAL_STATE, action) {
       return produce(state, (draftState) => {
         draftState.data = action.payload.data;
       });
-    case teamTypes.SET_ACTIVE:
+    case teamTypes.CREATE_TEAM_SUCCESS:
       return produce(state, (draftState) => {
-        draftState.active = action.payload.team;
+        draftState.data.push(action.payload.team);
       });
     default:
       return state;

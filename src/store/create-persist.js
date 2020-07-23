@@ -4,5 +4,5 @@ import { persistReducer } from 'redux-persist';
 export default (reducers) => persistReducer({
   key: 'saas',
   storage,
-  whitelist: ['auth', 'team'],
+  whitelist: ['auth', 'activeTeam'],
 }, reducers);

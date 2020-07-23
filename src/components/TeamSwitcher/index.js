@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { FiPlus } from 'react-icons/fi';
-import { setActive } from '../../store/ducks/team/actions';
+import { setActive } from '../../store/ducks/active-team/actions';
 
 import {
   Container, TeamList, Team, NewTeam,

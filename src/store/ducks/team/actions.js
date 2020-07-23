@@ -15,9 +15,18 @@ export function getTeamsSuccess(data) {
   };
 }
 
-export function setActive(team) {
+export function createTeamRequest(teamName) {
   return {
-    type: teamTypes.SET_ACTIVE,
+    type: teamTypes.CREATE_TEAM_REQUEST,
+    payload: {
+      name: teamName,
+    },
+  };
+}
+
+export function createTeamSuccess(team) {
+  return {
+    type: teamTypes.CREATE_TEAM_SUCCESS,
     payload: {
       team,
     },

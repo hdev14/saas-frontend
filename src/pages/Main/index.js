@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getTeamsRequest } from '../../store/ducks/team/actions';
+import { getTeamsRequest, createTeamRequest } from '../../store/ducks/team/actions';
 
 import TeamSwitcher from '../../components/TeamSwitcher';
 import Modal from '../../components/Modal';
@@ -24,13 +24,19 @@ const Main = () => {
     setTeam(e.target.value);
   }
 
+  function onSubmitTeamHandler(e) {
+    e.preventDefault();
+    dispatch(createTeamRequest(team));
+    setToggleTeamModal(false);
+  }
+
   return (
     <Container>
       <TeamSwitcher teams={teams} openTeamModal={() => setToggleTeamModal(true)} />
       {toggleTeamModal && (
         <Modal>
-          <h1>Criar Time</h1>
-          <form onSubmit={() => {}}>
+          <h1>Criar time</h1>
+          <form onSubmit={onSubmitTeamHandler}>
             <span>NOME</span>
             <input
               type="text"
@@ -40,7 +46,7 @@ const Main = () => {
             />
             <div className="buttons">
               <Button size="big" color="gray" onClick={() => setToggleTeamModal(false)}>cancelar</Button>
-              <Button size="big">criar</Button>
+              <Button type="submit" size="big" onClick={onSubmitTeamHandler}>salvar</Button>
             </div>
           </form>
         </Modal>

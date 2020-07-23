@@ -21,6 +21,5 @@ export function* signIn({ payload }) {
 export function setToken({ payload }) {
   if (payload.auth && payload.auth.token) {
     api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
-    // yield put(signInSuccess(token));
   }
 }
