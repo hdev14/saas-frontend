@@ -23,3 +23,7 @@ export function setToken({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${payload.auth.token}`;
   }
 }
+
+export function signOut() {
+  history.push('/signin');
+}

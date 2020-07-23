@@ -14,6 +14,11 @@ export default function auth(state = INITIAL_STATE, action) {
         draftState.signed = true;
         draftState.token = action.payload.token;
       });
+    case authTypes.SIGN_OUT:
+      return produce(state, (draftState) => {
+        draftState.signed = false;
+        draftState.token = null;
+      });
     default:
       return state;
   }

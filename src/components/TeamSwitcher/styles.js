@@ -50,3 +50,23 @@ export const NewTeam = styled.button`
     color: rgba(255, 255, 255, 0.6);
   }
 `;
+
+export const SignOut = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #e04848;
+  color: #e04848;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  transition: all .2s;
+  background: transparent;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:hover {
+    border-color: #a43d3d;
+    color: #a43d3d;
+  }
+`;

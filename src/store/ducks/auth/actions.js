@@ -17,3 +17,9 @@ export function signInSuccess(token) {
     },
   };
 }
+
+export function signOut() {
+  return {
+    type: authTypes.SIGN_OUT,
+  };
+}
