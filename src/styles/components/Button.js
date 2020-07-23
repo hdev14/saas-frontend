@@ -49,6 +49,9 @@ const Button = styled.button.attrs({
   padding: 0 10px;
   text-transform: uppercase;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${(props) => sizes[props.size || 'default']}
   ${(props) => colors[props.color || 'default']}

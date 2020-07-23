@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTeamsRequest, createTeamRequest } from '../../store/ducks/team/actions';
 
 import TeamSwitcher from '../../components/TeamSwitcher';
+import Projects from '../../components/Projects';
 import Modal from '../../components/Modal';
 
 import Button from '../../styles/components/Button';
@@ -33,6 +34,7 @@ const Main = () => {
   return (
     <Container>
       <TeamSwitcher teams={teams} openTeamModal={() => setToggleTeamModal(true)} />
+      <Projects />
       {toggleTeamModal && (
         <Modal>
           <h1>Criar time</h1>
