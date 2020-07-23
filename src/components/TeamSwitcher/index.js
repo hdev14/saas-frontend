@@ -8,7 +8,7 @@ import {
   Container, TeamList, Team, NewTeam,
 } from './styles';
 
-const TeamSwitcher = ({ teams }) => {
+const TeamSwitcher = ({ teams, openTeamModal }) => {
   const dispatch = useDispatch();
 
   function setActiveHandler(team) {
@@ -24,7 +24,7 @@ const TeamSwitcher = ({ teams }) => {
           </Team>
         ))}
       </TeamList>
-      <NewTeam>
+      <NewTeam onClick={openTeamModal}>
         <FiPlus size={25} />
       </NewTeam>
     </Container>
@@ -37,6 +37,7 @@ TeamSwitcher.defaultProps = {
 
 TeamSwitcher.propTypes = {
   teams: PropTypes.arrayOf(PropTypes.object),
+  openTeamModal: PropTypes.func.isRequired,
 };
 
 export default TeamSwitcher;

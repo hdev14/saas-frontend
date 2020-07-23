@@ -10,7 +10,7 @@ export function* getTeams() {
     const response = yield call(api.get, '/teams');
     yield put(getTeamsSuccess(response.data));
   } catch (err) {
-    toast.error('Algo errado não está certo');
+    toast.warning('Algo errado não está certo');
   }
 }
 

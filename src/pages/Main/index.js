@@ -13,21 +13,31 @@ const Main = () => {
   const teams = useSelector((state) => state.team.data);
   const dispatch = useDispatch();
 
-  const [toggleTeamModal, setToggleTeamModal] = useState(true);
+  const [team, setTeam] = useState('');
+  const [toggleTeamModal, setToggleTeamModal] = useState(false);
 
   useEffect(() => {
     dispatch(getTeamsRequest());
   }, [dispatch]);
 
+  function onChangeTeamHandler(e) {
+    setTeam(e.target.value);
+  }
+
   return (
     <Container>
-      <TeamSwitcher teams={teams} />
+      <TeamSwitcher teams={teams} openTeamModal={() => setToggleTeamModal(true)} />
       {toggleTeamModal && (
         <Modal>
           <h1>Criar Time</h1>
           <form onSubmit={() => {}}>
             <span>NOME</span>
-            <input type="text" placeholder="Digite o nome do time" value="" />
+            <input
+              type="text"
+              placeholder="Digite o nome do time"
+              value={team}
+              onChange={onChangeTeamHandler}
+            />
             <div className="buttons">
               <Button size="big" color="gray" onClick={() => setToggleTeamModal(false)}>cancelar</Button>
               <Button size="big">criar</Button>

@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-export default createGlobalStyle`
+const globalStyle = createGlobalStyle`
 
 *, *::before, *::after{
   margin: 0;
@@ -38,3 +38,5 @@ button {
   }
 }
 `;
+
+export default globalStyle;
