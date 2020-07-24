@@ -32,3 +32,12 @@ export function createTeamSuccess(team) {
     },
   };
 }
+
+export function createProject(project) {
+  return {
+    type: teamTypes.CREATE_PROJECT,
+    payload: {
+      project,
+    },
+  };
+}

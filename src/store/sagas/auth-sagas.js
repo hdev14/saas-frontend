@@ -9,7 +9,6 @@ export function* signIn({ payload }) {
   try {
     const response = yield call(api.post, '/sessions', payload);
     const { token } = response.data;
-    localStorage.setItem('@JWT:token', token);
     api.defaults.headers.Authorization = `Bearer ${token}`;
     yield put(signInSuccess(token));
     history.push('/');

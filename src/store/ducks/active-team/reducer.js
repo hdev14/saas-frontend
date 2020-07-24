@@ -10,7 +10,7 @@ export default function activeTeam(state = INITIAL_STATE, action) {
   switch (action.type) {
     case teamTypes.SET_ACTIVE:
       return produce(state, (draftState) => {
-        draftState.active = action.payload.team;
+        draftState.active = action.payload.activeTeam;
       });
     default:
       return state;

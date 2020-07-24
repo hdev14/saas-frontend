@@ -47,7 +47,13 @@ const Main = () => {
               onChange={onChangeTeamHandler}
             />
             <div className="buttons">
-              <Button size="big" color="gray" onClick={() => setToggleTeamModal(false)}>cancelar</Button>
+              <Button
+                size="big"
+                color="gray"
+                onClick={() => setToggleTeamModal(false)}
+              >
+                cancelar
+              </Button>
               <Button type="submit" size="big" onClick={onSubmitTeamHandler}>salvar</Button>
             </div>
           </form>
