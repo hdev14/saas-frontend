@@ -106,8 +106,8 @@ const Projects = () => {
               <form onSubmit={onSubmitProjectHandler}>
                 <MemberList>
                   {members.map((m) => (
-                    <li key={m.id}>
-                      <strong>{m.name}</strong>
+                    <li key={m.user.id}>
+                      <strong>{m.user.name}</strong>
                     </li>
                   ))}
                 </MemberList>
