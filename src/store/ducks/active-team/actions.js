@@ -4,7 +4,7 @@ export function setActive(team) {
   return {
     type: teamTypes.SET_ACTIVE,
     payload: {
-      team,
+      activeTeam: team,
     },
   };
 }

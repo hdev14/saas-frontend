@@ -15,9 +15,9 @@ export function* getTeams() {
 }
 
 export function setActive({ payload }) {
-  const { team } = payload;
-  if (team) {
-    api.defaults.headers.common['Team-Slug'] = team.active ? team.active.slug : team.slug;
+  const { activeTeam } = payload;
+  if (activeTeam) {
+    api.defaults.headers.common['Team-Slug'] = activeTeam.active ? activeTeam.active.slug : activeTeam.slug;
   }
 }
 
@@ -28,5 +28,15 @@ export function* createTeam({ payload }) {
     toast.success('Time criado.');
   } catch (err) {
     toast.error('Não foi possível criar o time, por favor tente novamente.');
+  }
+}
+
+export function* createProject({ payload }) {
+  try {
+    const { project } = payload;
+    yield call(api.post, '/projects', { title: project });
+    toast.success('Projeto criado');
+  } catch (err) {
+    toast.error('Erro ao criar um projeto.');
   }
 }
