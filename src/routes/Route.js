@@ -32,8 +32,10 @@ Route.defaultProps = {
 Route.propTypes = {
   auth: PropTypes.bool,
   component: PropTypes.oneOfType([
+    PropTypes.node,
     PropTypes.element,
     PropTypes.func,
+    PropTypes.elementType,
   ]).isRequired,
 };
 
