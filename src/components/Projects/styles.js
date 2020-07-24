@@ -39,3 +39,23 @@ export const Project = styled.div`
   background-color: rgba(0, 0, 0, .3);
   margin-bottom: 10px;
 `;
+
+export const MemberList = styled.ul`
+  list-style: none;
+  margin-top: 20p;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    strong {
+      font-size: 18px;
+    }    
+  }
+`;

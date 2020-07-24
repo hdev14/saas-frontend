@@ -8,12 +8,13 @@ import api from '../../services/api';
 
 import Modal from '../Modal';
 import Button from '../../styles/components/Button';
-import { Container, Project } from './styles';
+import { Container, Project, MemberList } from './styles';
 
 const Projects = () => {
   const activeTeam = useSelector((state) => state.activeTeam.active);
   const [projects, setProjects] = useState([]);
-  const [toggleProjectModal, setToggleProjectModal] = useState(true);
+  const [toggleProjectModal, setToggleProjectModal] = useState(false);
+  const [toggleMembersModal, setToggleMembersModal] = useState(true);
   const [project, setProject] = useState('');
   const dispatch = useDispatch();
 
@@ -48,11 +49,11 @@ const Projects = () => {
           <header>
             <h1>{activeTeam.name}</h1>
             <div>
-              <Button size="small">
+              <Button size="small" onClick={() => setToggleProjectModal(true)}>
                 <FiPlus size={24} />
                 novo
               </Button>
-              <Button size="small">membros</Button>
+              <Button size="small" onClick={() => setToggleMembersModal(true)}>membros</Button>
             </div>
           </header>
 
@@ -81,6 +82,26 @@ const Projects = () => {
                   </Button>
                   <Button type="submit" size="big" onClick={onSubmitProjectHandler}>salvar</Button>
                 </div>
+              </form>
+            </Modal>
+          )}
+
+          {toggleMembersModal && (
+            <Modal>
+              <h1>Membros</h1>
+              <form onSubmit={onSubmitProjectHandler}>
+                <MemberList>
+                  <li>
+                    <strong>Membro 1</strong>
+                  </li>
+                </MemberList>
+                <Button
+                  size="small"
+                  color="gray"
+                  onClick={() => setToggleMembersModal(false)}
+                >
+                  cancelar
+                </Button>
               </form>
             </Modal>
           )}
