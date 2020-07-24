@@ -12,30 +12,44 @@ import { Container, Project, MemberList } from './styles';
 
 const Projects = () => {
   const activeTeam = useSelector((state) => state.activeTeam.active);
-  const [projects, setProjects] = useState([]);
   const [toggleProjectModal, setToggleProjectModal] = useState(false);
-  const [toggleMembersModal, setToggleMembersModal] = useState(true);
-  const [project, setProject] = useState('');
+  const [toggleMembersModal, setToggleMembersModal] = useState(false);
   const dispatch = useDispatch();
 
+  const [projects, setProjects] = useState([]);
   async function fetchProjects() {
     try {
       const response = await api.get('/projects');
       setProjects(response.data);
     } catch (err) {
-      toast.error('Não foi possível carregar os projetos.');
+      toast.warning('Não foi possível carregar os projetos.');
     }
   }
 
   useEffect(() => {
     fetchProjects();
-  }, [projects]);
+  }, []);
 
-  function onSubmitProjectHandler(e) {
+  const [members, setMembers] = useState([]);
+  async function fetchMembers() {
+    try {
+      const response = await api.get('/members');
+      setMembers(response.data);
+    } catch (err) {
+      toast.warning('Não foi possível carregar os membros.');
+    }
+  }
+
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const [project, setProject] = useState('');
+  async function onSubmitProjectHandler(e) {
     e.preventDefault();
     dispatch(createProject(project));
     setToggleProjectModal(false);
-    fetchProjects();
+    setTimeout(fetchProjects, 1000);
   }
 
   function onChangeProjectHandler(e) {
@@ -87,13 +101,15 @@ const Projects = () => {
           )}
 
           {toggleMembersModal && (
-            <Modal>
+            <Modal size="big">
               <h1>Membros</h1>
               <form onSubmit={onSubmitProjectHandler}>
                 <MemberList>
-                  <li>
-                    <strong>Membro 1</strong>
-                  </li>
+                  {members.map((m) => (
+                    <li key={m.id}>
+                      <strong>{m.name}</strong>
+                    </li>
+                  ))}
                 </MemberList>
                 <Button
                   size="small"
