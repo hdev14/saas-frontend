@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FiPlus } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 
-import { createProject } from '../../store/ducks/team/actions';
 import api from '../../services/api';
+import { createProject, addRoles } from '../../store/ducks/team/actions';
 
 import Modal from '../Modal';
 import Button from '../../styles/components/Button';
@@ -42,6 +43,35 @@ const Projects = () => {
 
   useEffect(() => {
     fetchMembers();
+  }, []);
+
+  const [roles, setRoles] = useState([]);
+  async function fetchRoles() {
+    try {
+      const response = await api.get('/roles');
+      setRoles(response.data);
+    } catch (err) {
+      toast.warning('Não foi possível carregar as permissões');
+    }
+  }
+
+  function onChangeRolesHandler(userId, selectedRoles) {
+    if (selectedRoles) {
+      const getRoles = selectedRoles.map((role) => roles.find((r) => r.id === role.id));
+      const memberId = members.findIndex((member) => member.user_id === userId);
+      if (memberId >= 0) {
+        const member = members[memberId];
+        const memberWithNewRoles = { ...member, roles: getRoles };
+        const membersWihtoutMemberWithNewRoles = members.filter((m) => m.id !== members[memberId].id);
+        setMembers([...membersWihtoutMemberWithNewRoles, memberWithNewRoles]);
+        const rolesId = getRoles.map((r) => r.id);
+        dispatch(addRoles(userId, rolesId));
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchRoles();
   }, []);
 
   const [project, setProject] = useState('');
@@ -106,8 +136,17 @@ const Projects = () => {
               <form onSubmit={onSubmitProjectHandler}>
                 <MemberList>
                   {members.map((m) => (
-                    <li key={m.user.id}>
+                    <li key={m.user_id}>
                       <strong>{m.user.name}</strong>
+                      <Select
+                        isMulti
+                        options={roles}
+                        defaultValue={m.roles}
+                        getOptionLabel={(role) => role.name}
+                        getOptionValue={(role) => role.id}
+                        closeMenuOnSelect={false}
+                        onChange={(value) => onChangeRolesHandler(m.user_id, value)}
+                      />
                     </li>
                   ))}
                 </MemberList>

@@ -40,3 +40,13 @@ export function* createProject({ payload }) {
     toast.error('Erro ao criar um projeto.');
   }
 }
+
+export function* addRoles({ payload }) {
+  try {
+    const { userId, roles } = payload;
+    yield call(api.put, `/members/${userId}`, { roles });
+    toast.success('Permissões adicionadas com sucesso');
+  } catch (err) {
+    toast.error('Error ao adicionar as permissões');
+  }
+}

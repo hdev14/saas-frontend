@@ -11,4 +11,5 @@ export const teamTypes = {
   CREATE_TEAM_REQUEST: '@team/createTeamRequest',
   CREATE_TEAM_SUCCESS: '@team/createTeamSuccess',
   CREATE_PROJECT: '@team/createProject',
+  ADD_ROLES: '@team/addRoles',
 };

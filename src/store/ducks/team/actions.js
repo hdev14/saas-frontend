@@ -41,3 +41,14 @@ export function createProject(project) {
     },
   };
 }
+
+export function addRoles(userId, roles) {
+  console.log('ACTION');
+  return {
+    type: teamTypes.ADD_ROLES,
+    payload: {
+      userId,
+      roles,
+    },
+  };
+}
