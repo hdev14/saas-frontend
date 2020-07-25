@@ -29,10 +29,6 @@ const Projects = () => {
     }
   }
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
   const [members, setMembers] = useState([]);
   async function fetchMembers() {
     try {
@@ -44,8 +40,11 @@ const Projects = () => {
   }
 
   useEffect(() => {
-    fetchMembers();
-  }, []);
+    if (activeTeam) {
+      fetchProjects();
+      fetchMembers();
+    }
+  }, [activeTeam]);
 
   const [roles, setRoles] = useState([]);
   async function fetchRoles() {

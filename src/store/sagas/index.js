@@ -1,7 +1,9 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
 import { authTypes, teamTypes } from '../ducks/actions-types';
-import { signIn, setToken, signOut } from './auth-sagas';
+import {
+  signIn, signUp, setToken, signOut,
+} from './auth-sagas';
 import {
   getTeams, setActive, createTeam, createProject, addRoles, inviteMember,
 } from './team-sagas';
@@ -9,6 +11,7 @@ import {
 export default function* rootSaga() {
   return yield all([
     takeLatest(authTypes.SIGN_IN_REQUEST, signIn),
+    takeLatest(authTypes.SIGN_UP_REQUEST, signUp),
     takeLatest(authTypes.SIGN_OUT, signOut),
     takeLatest('persist/REHYDRATE', setToken),
     takeLatest('persist/REHYDRATE', setActive),
