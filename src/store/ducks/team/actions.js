@@ -43,12 +43,20 @@ export function createProject(project) {
 }
 
 export function addRoles(userId, roles) {
-  console.log('ACTION');
   return {
     type: teamTypes.ADD_ROLES,
     payload: {
       userId,
       roles,
+    },
+  };
+}
+
+export function inviteMember(email) {
+  return {
+    type: teamTypes.INVITE_MEMBER,
+    payload: {
+      email,
     },
   };
 }

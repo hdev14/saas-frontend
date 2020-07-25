@@ -59,8 +59,20 @@ export const MemberList = styled.ul`
     } 
 
     > div {
-      width: 320px;
+      width: 350px;
       color: #666;
     }   
+  }
+`;
+
+export const Invite = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+  & > button {
+    margin-top: 10px;
   }
 `;

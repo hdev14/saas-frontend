@@ -50,3 +50,13 @@ export function* addRoles({ payload }) {
     toast.error('Error ao adicionar as permissões');
   }
 }
+
+export function* inviteMember({ payload }) {
+  try {
+    const { email } = payload;
+    yield call(api.post, '/invites', { emails: [email] });
+    toast.success(`Membro convidado! Um email foi enviado para esse endereço ${email}`);
+  } catch (err) {
+    toast.error('Error ao enviar o convite');
+  }
+}

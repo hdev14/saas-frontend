@@ -5,11 +5,13 @@ import { toast } from 'react-toastify';
 import Select from 'react-select';
 
 import api from '../../services/api';
-import { createProject, addRoles } from '../../store/ducks/team/actions';
+import { createProject, addRoles, inviteMember } from '../../store/ducks/team/actions';
 
 import Modal from '../Modal';
 import Button from '../../styles/components/Button';
-import { Container, Project, MemberList } from './styles';
+import {
+  Container, Project, MemberList, Invite,
+} from './styles';
 
 const Projects = () => {
   const activeTeam = useSelector((state) => state.activeTeam.active);
@@ -86,6 +88,16 @@ const Projects = () => {
     setProject(e.target.value);
   }
 
+  const [memberEmail, setMemberEmail] = useState('');
+  function onChangeMemberEmailHanlder(e) {
+    setMemberEmail(e.target.value);
+  }
+
+  async function onClickInviteHandler(e) {
+    e.preventDefault();
+    dispatch(inviteMember(memberEmail));
+  }
+
   return (
     <Container>
       {activeTeam ? (
@@ -133,7 +145,18 @@ const Projects = () => {
           {toggleMembersModal && (
             <Modal size="big">
               <h1>Membros</h1>
-              <form onSubmit={onSubmitProjectHandler}>
+
+              <form>
+                <Invite>
+                  <span>CONVIDAR MEMBRO</span>
+                  <input
+                    type="email"
+                    placeholder="Digite o email do membro."
+                    value={memberEmail}
+                    onChange={onChangeMemberEmailHanlder}
+                  />
+                  <Button type="submit" size="small" onClick={onClickInviteHandler}>enviar</Button>
+                </Invite>
                 <MemberList>
                   {members.map((m) => (
                     <li key={m.user_id}>
