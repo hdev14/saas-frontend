@@ -8,6 +8,7 @@ import api from '../../services/api';
 import { createProject, addRoles, inviteMember } from '../../store/ducks/team/actions';
 
 import Modal from '../Modal';
+import Can from '../Can';
 import Button from '../../styles/components/Button';
 import {
   Container, Project, MemberList, Invite,
@@ -39,13 +40,6 @@ const Projects = () => {
     }
   }
 
-  useEffect(() => {
-    if (activeTeam) {
-      fetchProjects();
-      fetchMembers();
-    }
-  }, [activeTeam]);
-
   const [roles, setRoles] = useState([]);
   async function fetchRoles() {
     try {
@@ -55,6 +49,25 @@ const Projects = () => {
       toast.warning('Não foi possível carregar as permissões');
     }
   }
+
+  const [auth, setAuth] = useState({});
+  async function fetchAuth() {
+    try {
+      const response = await api.get('/authorizations');
+      setAuth(response.data);
+    } catch (err) {
+      toast.warning('Não foi possível carregar as autorizações');
+    }
+  }
+
+  useEffect(() => {
+    if (activeTeam) {
+      fetchProjects();
+      fetchMembers();
+      fetchRoles();
+      fetchAuth();
+    }
+  }, [activeTeam]);
 
   function onChangeRolesHandler(userId, selectedRoles) {
     if (selectedRoles) {
@@ -70,10 +83,6 @@ const Projects = () => {
       }
     }
   }
-
-  useEffect(() => {
-    fetchRoles();
-  }, []);
 
   const [project, setProject] = useState('');
   async function onSubmitProjectHandler(e) {
@@ -104,10 +113,14 @@ const Projects = () => {
           <header>
             <h1>{activeTeam.name}</h1>
             <div>
-              <Button size="small" onClick={() => setToggleProjectModal(true)}>
-                <FiPlus size={24} />
-                novo
-              </Button>
+              {auth !== {} && (
+                <Can auth={auth} userPermission="create-project">
+                  <Button size="small" onClick={() => setToggleProjectModal(true)}>
+                    <FiPlus size={24} />
+                    novo
+                  </Button>
+                </Can>
+              )}
               <Button size="small" onClick={() => setToggleMembersModal(true)}>membros</Button>
             </div>
           </header>
@@ -146,29 +159,40 @@ const Projects = () => {
               <h1>Membros</h1>
 
               <form>
-                <Invite>
-                  <span>CONVIDAR MEMBRO</span>
-                  <input
-                    type="email"
-                    placeholder="Digite o email do membro."
-                    value={memberEmail}
-                    onChange={onChangeMemberEmailHanlder}
-                  />
-                  <Button type="submit" size="small" onClick={onClickInviteHandler}>enviar</Button>
-                </Invite>
+                {auth !== {} && (
+                  <Can auth={auth} userPermission="create-invite">
+                    <Invite>
+                      <span>CONVIDAR MEMBRO</span>
+                      <input
+                        type="email"
+                        placeholder="Digite o email do membro."
+                        value={memberEmail}
+                        onChange={onChangeMemberEmailHanlder}
+                      />
+                      <Button type="submit" size="small" onClick={onClickInviteHandler}>enviar</Button>
+                    </Invite>
+                  </Can>
+                )}
                 <MemberList>
                   {members.map((m) => (
                     <li key={m.user_id}>
                       <strong>{m.user.name}</strong>
-                      <Select
-                        isMulti
-                        options={roles}
-                        defaultValue={m.roles}
-                        getOptionLabel={(role) => role.name}
-                        getOptionValue={(role) => role.id}
-                        closeMenuOnSelect={false}
-                        onChange={(value) => onChangeRolesHandler(m.user_id, value)}
-                      />
+                      {auth !== {} && (
+                        <Can auth={auth} userRole="admin">
+                          {(can) => (
+                            <Select
+                              isMulti
+                              isDisabled={!can}
+                              options={roles}
+                              defaultValue={m.roles}
+                              getOptionLabel={(role) => role.name}
+                              getOptionValue={(role) => role.id}
+                              closeMenuOnSelect={false}
+                              onChange={(value) => onChangeRolesHandler(m.user_id, value)}
+                            />
+                          )}
+                        </Can>
+                      )}
                     </li>
                   ))}
                 </MemberList>
