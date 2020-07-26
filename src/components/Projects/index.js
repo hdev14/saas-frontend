@@ -113,14 +113,12 @@ const Projects = () => {
           <header>
             <h1>{activeTeam.name}</h1>
             <div>
-              {auth !== {} && (
-                <Can auth={auth} userPermission="create-project">
-                  <Button size="small" onClick={() => setToggleProjectModal(true)}>
-                    <FiPlus size={24} />
-                    novo
-                  </Button>
-                </Can>
-              )}
+              <Can auth={auth} userPermission="create-project">
+                <Button size="small" onClick={() => setToggleProjectModal(true)}>
+                  <FiPlus size={24} />
+                  novo
+                </Button>
+              </Can>
               <Button size="small" onClick={() => setToggleMembersModal(true)}>membros</Button>
             </div>
           </header>
@@ -159,40 +157,40 @@ const Projects = () => {
               <h1>Membros</h1>
 
               <form>
-                {auth !== {} && (
-                  <Can auth={auth} userPermission="create-invite">
-                    <Invite>
-                      <span>CONVIDAR MEMBRO</span>
-                      <input
-                        type="email"
-                        placeholder="Digite o email do membro."
-                        value={memberEmail}
-                        onChange={onChangeMemberEmailHanlder}
-                      />
-                      <Button type="submit" size="small" onClick={onClickInviteHandler}>enviar</Button>
-                    </Invite>
-                  </Can>
-                )}
+
+                <Can auth={auth} userPermission="create-invite">
+                  <Invite>
+                    <span>CONVIDAR MEMBRO</span>
+                    <input
+                      type="email"
+                      placeholder="Digite o email do membro."
+                      value={memberEmail}
+                      onChange={onChangeMemberEmailHanlder}
+                    />
+                    <Button type="submit" size="small" onClick={onClickInviteHandler}>enviar</Button>
+                  </Invite>
+                </Can>
+
                 <MemberList>
                   {members.map((m) => (
                     <li key={m.user_id}>
                       <strong>{m.user.name}</strong>
-                      {auth !== {} && (
-                        <Can auth={auth} userRole="admin">
-                          {(can) => (
-                            <Select
-                              isMulti
-                              isDisabled={!can}
-                              options={roles}
-                              defaultValue={m.roles}
-                              getOptionLabel={(role) => role.name}
-                              getOptionValue={(role) => role.id}
-                              closeMenuOnSelect={false}
-                              onChange={(value) => onChangeRolesHandler(m.user_id, value)}
-                            />
-                          )}
-                        </Can>
-                      )}
+
+                      <Can auth={auth} userRole="admin">
+                        {(can) => (
+                          <Select
+                            isMulti
+                            isDisabled={!can}
+                            options={roles}
+                            defaultValue={m.roles}
+                            getOptionLabel={(role) => role.name}
+                            getOptionValue={(role) => role.id}
+                            closeMenuOnSelect={false}
+                            onChange={(value) => onChangeRolesHandler(m.user_id, value)}
+                          />
+                        )}
+                      </Can>
+
                     </li>
                   ))}
                 </MemberList>

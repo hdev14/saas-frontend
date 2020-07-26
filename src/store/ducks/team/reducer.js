@@ -4,7 +4,6 @@ import { teamTypes } from '../actions-types';
 
 const INITIAL_STATE = {
   data: [],
-  active: null,
 };
 
 export default function team(state = INITIAL_STATE, action) {
